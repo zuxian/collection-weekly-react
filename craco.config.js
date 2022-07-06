@@ -14,7 +14,11 @@ module.exports = {
           "libraryDirectory": "es",
           "style": true //设置为true即是less 用css可以写"css", 下面是lessLoaderOptions所以用less
         }
-      ]
+      ],
+      // ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      // ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+      // ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+      // ["babel-plugin-transform-decorators-legacy", { legacy: true }]
     ]
   },
   plugins: [

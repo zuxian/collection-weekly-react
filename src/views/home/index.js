@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 // import { WithStyles } from '@components';
 import Card from './components/Card';
-// import styles from './index.less';
+import styles from './index.less';
 // import { actionCreators } from './store';
 
 // @WithStyles(styles)
+//  npm install --save babel-plugin-transform-decorators-legacy
+// @babel/plugin-proposal-decorators
 // @connect(
 //   state => ({ homeStore: state.homeStore }),
 //   dispatch => ({
@@ -13,7 +15,14 @@ import Card from './components/Card';
 //   })
 // )
 export default class Home extends Component {
+  fetchData = () => {
+    // getHomeList().then((response) => {
+    //   console.log('--response--', response)
+    // });
+  }
+
   componentDidMount() {
+    this.fetchData();
     const { cardList=[] } = this.props.homeStore || {};
     if (!cardList.length) {
       // this.props.getHomeList();
