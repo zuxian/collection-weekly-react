@@ -53,5 +53,6 @@ class Home extends Component {
   }
 }
 
+// const App1 = connect(mapStateToProps,mapDispatchToProps)(App);
 // export default connect((state) => state.homeStore, actionCreators)(WithStyles(styles)(Home));
 export default connect((state) => state.homeStore, actionCreators)(Home);
