@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
-// import { WithStyles } from '@components';
+import { WithStyles } from '../../components';
 import Card from './components/Card';
 import styles from './index.less';
 import { actionCreators } from './store';
@@ -26,6 +26,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.fetchData();
+    console.log('----this.props----', this.props)
     const { cardList=[] } = this.props || {};
     if (!cardList.length) {
     }
@@ -52,4 +53,5 @@ class Home extends Component {
   }
 }
 
+// export default connect((state) => state.homeStore, actionCreators)(WithStyles(styles)(Home));
 export default connect((state) => state.homeStore, actionCreators)(Home);

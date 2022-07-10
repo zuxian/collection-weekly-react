@@ -56,7 +56,6 @@ class Detail extends Component {
     request
       .get(`/api/weeks/list?count=${this.props.params.week}`)
       .then((res) => {
-        console.log('----getDate---getDate--', res)
         if (res.data && res.data[0]) {
           this.setState({
             date: new Date(res.data[0].datetime).toLocaleDateString(),

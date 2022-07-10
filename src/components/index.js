@@ -1,6 +1,6 @@
 import Header from './Header';
 // import Footer from './Footer';
-// import WithStyles from './WithStyles';
+import WithStyles from './WithStyles';
 
-export { Header };
+export { Header, WithStyles };
 

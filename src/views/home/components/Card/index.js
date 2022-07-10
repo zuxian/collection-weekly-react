@@ -14,7 +14,7 @@ export default class Card extends Component {
           target="_blank"
         >
           <img
-            src={`/static/images/${count}.png`}
+            src={`/static/images/${count+20}.png`}
             alt={`第${count}期封面图`}
             className="weekly__item__cover lazy"
           />
