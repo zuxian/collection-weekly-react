@@ -10,8 +10,7 @@ export const getList = list => ({
 
 export const getListEffect = () => (dispatch) => {
   return request.get(weeklyListUrl).then((res) => {
-    console.log('-----getListEffect-----', res)
 
-    dispatch(getList(res.data));
+    return dispatch(getList(res.data));
   });
 };

@@ -3,10 +3,12 @@ import React, { Component } from 'react';
 // import { WithStyles } from '@components';
 import Card from './components/Card';
 import styles from './index.less';
-// import { actionCreators } from './store';
+import { actionCreators } from './store';
+
+import { connect } from "react-redux";
 
 // @WithStyles(styles)
-//  npm install --save babel-plugin-transform-decorators-legacy
+// npm install --save babel-plugin-transform-decorators-legacy
 // @babel/plugin-proposal-decorators
 // @connect(
 //   state => ({ homeStore: state.homeStore }),
@@ -14,23 +16,23 @@ import styles from './index.less';
 //     getHomeList: () => dispatch(actionCreators.getListEffect()),
 //   })
 // )
-export default class Home extends Component {
+class Home extends Component {
   fetchData = () => {
-    // getHomeList().then((response) => {
-    //   console.log('--response--', response)
-    // });
+    this.props.getListEffect().then((response) => {
+      console.log('--response--', response)
+      console.log('--response-cardList-', this.props.cardList)
+    });
   }
 
   componentDidMount() {
     this.fetchData();
-    const { cardList=[] } = this.props.homeStore || {};
+    const { cardList=[] } = this.props || {};
     if (!cardList.length) {
-      // this.props.getHomeList();
     }
   }
 
   render() {
-    const { cardList=[] } = this.props.homeStore || {};
+    const { cardList=[] } = this.props || {};
     if (!cardList.length) return null;
     const reverseList = cardList.slice().reverse();
     return (
@@ -49,3 +51,5 @@ export default class Home extends Component {
     );
   }
 }
+
+export default connect((state) => state.homeStore, actionCreators)(Home);
