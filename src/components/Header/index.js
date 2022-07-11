@@ -10,7 +10,8 @@ export default class Header extends Component {
           <span className="router-links">
             <a href="/">首页</a>
             <a href="/summary">数据看板</a>
-            {/* <a href="http://localhost:1200/zooTeam/weekly" target="_blank" rel="noreferrer"><img src="../../../static/images/rss.png" alt="rss" className="rss" /></a> */}
+            <a href="/antd">antd组件</a>
+            <a href="https://github.com/zuxian/collection-weekly-react" target="_blank" rel="noreferrer"><img src="../../../static/images/rss.png" alt="rss" className="rss" /></a>
           </span>
         </h1>
       </header>
