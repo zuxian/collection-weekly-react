@@ -1,23 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link  } from 'react-router-dom';
-// import { WithStyles } from '@components';
 import request from '../../utils/request';
 import { isNumeric } from '../../utils/common';
-// import { withRouter } from '../../utils/withRouter';
-// 修改head标签: title、 base、 meta、 link、 script、 noscript和style
-// import { Helmet } from 'react-helmet';
 import { actionCreators } from './store';
 import styles from './index.less';
 
-// @WithStyles(styles)
-// @connect(
-//   state => ({ detailStore: state.detailStore }),
-//   dispatch => ({
-//     getDetail: week => dispatch(actionCreators.getDetailEffect(week)),
-//     resetDetail: () => dispatch(actionCreators.resetDetail()),
-//   })
-// )
 class Detail extends Component {
   constructor(props) {
     super(props);
@@ -158,5 +146,4 @@ class Detail extends Component {
   }
 }
 
-// export default withRouter(connect((state) => state.detailStore, actionCreators)(Detail));
 export default connect((state) => state.detailStore, actionCreators)(Detail);

@@ -1,32 +1,16 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-import { WithStyles } from '../../components';
 import Card from './components/Card';
 import styles from './index.less';
-import { actionCreators } from './store';
-
+import { actionCreators } from './store/index.js';
 import { connect } from "react-redux";
 
-// @WithStyles(styles)
-// npm install --save babel-plugin-transform-decorators-legacy
-// @babel/plugin-proposal-decorators
-// @connect(
-//   state => ({ homeStore: state.homeStore }),
-//   dispatch => ({
-//     getHomeList: () => dispatch(actionCreators.getListEffect()),
-//   })
-// )
 class Home extends Component {
   fetchData = () => {
-    this.props.getListEffect().then((response) => {
-      console.log('--response--', response)
-      console.log('--response-cardList-', this.props.cardList)
-    });
+    this.props.getListEffect()
   }
 
   componentDidMount() {
     this.fetchData();
-    console.log('----this.props----', this.props)
     const { cardList=[] } = this.props || {};
     if (!cardList.length) {
     }
@@ -53,6 +37,4 @@ class Home extends Component {
   }
 }
 
-// const App1 = connect(mapStateToProps,mapDispatchToProps)(App);
-// export default connect((state) => state.homeStore, actionCreators)(WithStyles(styles)(Home));
 export default connect((state) => state.homeStore, actionCreators)(Home);
