@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/stores';
 import AppleItem from './AppleItem';
-
+import './index.less';
 
 function getAppleItem (appleList) {
   const data = appleList.reduce((list, apple) => {

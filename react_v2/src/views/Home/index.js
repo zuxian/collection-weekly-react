@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import Card from './components/Card/index.js';
 import styles from './index.less';
-import { actionCreators } from './store';
-import { connect } from "react-redux";
+import { useStore } from '@/stores';
+import { observer } from 'mobx-react-lite';
 
+function Home () {
+  const { homeStore } = useStore();
+  const { getListEffect, cardList = [] } = homeStore;
+  useEffect(() => { getListEffect() }, [])
 
-function Home (props) {
-  useEffect(() => { props.getListEffect() }, [])
-
-  const { cardList=[] } = props || {};
   if (!cardList.length) return null;
   const reverseList = cardList.slice().reverse();
   return (
@@ -23,4 +23,4 @@ function Home (props) {
   );
 }
 
-export default connect((state) => state.homeStore, actionCreators)(Home);
+export default observer(Home);
