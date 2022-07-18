@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useStore } from '@/stores';
+import { autorun, toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import * as echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
@@ -8,26 +10,44 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/grid';
-import { actionCreators } from './store';
 
 import './index.less';
 
-class Summary extends Component {
-  componentDidMount() {
-    const { overview } = this.props;
-    if (!overview.articleTotal) {
-      this.props.getSummaryEffect().then(() => {
-        this.initBarEcharts(this.props.overview);
-        this.initCategoryChart(this.props.overview);
-      });
-    } else {
-      this.initBarEcharts(overview);
-      this.initCategoryChart(overview);
-    }
-  }
+function Summary () {
+  const { summaryStore } = useStore();
+  const { getSummaryEffect, overview = {} } = summaryStore;
+  let overviewObj = toJS(overview)
 
-  initBarEcharts = (overview) => {
-    const { weekMap = [], categoryMap = [], monthMap = [] } = overview;
+  let resOverview = {}
+
+  useEffect(() => {   
+    if (!overview.articleTotal) {
+      getSummaryEffect().then((res) => {
+        resOverview = res.data
+        initBarEcharts(resOverview);
+        initCategoryChart(resOverview);
+      });
+      overviewObj = toJS(overview)
+    } else {
+      overviewObj = toJS(overview)
+      initBarEcharts(overview);
+      initCategoryChart(overview);
+    }
+   }, [])
+
+  // useEffect(() => {
+  //   let overviewa =  summaryStore.overview
+  //   autorun(() => {
+  //     overviewObj = toJS(overview)
+  //     initBarEcharts();
+  //     initCategoryChart();
+  //     console.log('-----sdoigjodphkmfp--------', overviewa)
+  //   })
+  // }, [])
+
+
+  const initBarEcharts = (value) => {
+    const { weekMap = [], categoryMap = [], monthMap = [] } = value;
     const xAxis = [];
     const data = [];
     const CategoryAxis = [];
@@ -138,8 +158,8 @@ class Summary extends Component {
     MChart.setOption(monthOption);
   };
 
-  initCategoryChart = (overview) => {
-    const { categoryMap = [] } = overview;
+  const initCategoryChart = (value) => {
+    const { categoryMap = [] } = value;
     const xAxis = [];
     const data = [];
 
@@ -209,8 +229,6 @@ class Summary extends Component {
     myChart.setOption(option);
   };
 
-  render() {
-    const { overview } = this.props;
     return (
       <React.Fragment>
         <h2 className="summary-title">收藏周刊半年期数据</h2>
@@ -234,9 +252,7 @@ class Summary extends Component {
         <div id="category-chart-all" style={{ width: 800, height: 300, margin: '0 auto' }} />
         <div id="category-chart" style={{ width: 1000, height: 400, margin: '0 auto' }}  />
       </React.Fragment>
-    );
-  }
+    )
 }
 
-export default connect((state) => state.summaryStore, actionCreators)(Summary);
-
+export default observer(Summary);

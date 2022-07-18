@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Header, Footer } from '../components';
 import Home from '../views/Home';
 // import Detail from '../views/Detail';
-// import Summary from '../views/Summary';
+import Summary from '../views/Summary';
 import Antd from '../views/Antd';
 import Todo from '../views/Todo';
 import { WrapComps } from '../utils/withRouter';
@@ -17,8 +17,9 @@ class Layout extends Component {
         <main>
           <Routes>
             <Route path='/'  element={<Home />} />
-            {/* <Route path='/detail/:week'  element={<WrapComps el={Detail} />} />
-            <Route path='/summary'  element={<Summary />} /> */}
+            {/* <Route path='/detail/:week'  element={<WrapComps el={Detail} />} /> */}
+            {/* <Route path='/summary'  element={<WrapComps el={Summary} />} /> */}
+            <Route path='/summary'  element={<Summary />} />
             <Route path='/antd'  element={<Antd />} />
             <Route path='/todo'  element={<Todo />} />
           </Routes>
