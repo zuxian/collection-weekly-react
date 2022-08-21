@@ -287,12 +287,12 @@ https://www.jianshu.com/p/9af1c9c3a02b
 
 ```js
 Function.prototype.memoize = function() {
-    var self = this
-    return function () {
-        var args = Array.prototype.slice.call(arguments)
-        self.cache = self.cache || {};
-        return self.cache[args] ? self.cache[args] : (self.cache[args] = self(args))
-    }
+  var self = this
+  return function () {
+    var args = Array.prototype.slice.call(arguments)
+    self.cache = self.cache || {};
+    return self.cache[args] ? self.cache[args] : (self.cache[args] = self(args))
+  }
 }
 
 function sqrt(arg) { return Math.sqrt(arg); }
@@ -322,10 +322,10 @@ const Home: React.FC<Iprops> = () => {
     setInfo(value)
   }
   return (<div>
-      <p>{info}</p>
-      <Input onChange={(e) => changeInfo(e)}></Input>
-      <Son1 onVisible={onVisible} />
-    </div>)
+    <p>{info}</p>
+    <Input onChange={(e) => changeInfo(e)}></Input>
+    <Son1 onVisible={onVisible} />
+  </div>)
 }
 export default Home
 ```
@@ -361,16 +361,16 @@ export function useFirstMountState(): boolean {
 访问DOM，从而操作DOM，如点击按钮聚焦文本框
 ```js
 const Hook =()=>{
-    const [count, setCount] = useState(0)
-    const btnRef = useRef(null)
-    useEffect(() => {
-        const onClick = ()=>{ setCount(count+1)  }
-        btnRef.current.addEventListener('click',onClick, false)
-        return ()=> btnRef.current.removeEventListener('click',onClick, false)
-    },[count])
-    return(<div><div>{count}</div>
-            <button ref={btnRef}>click me</button>
-    </div>)
+  const [count, setCount] = useState(0)
+  const btnRef = useRef(null)
+  useEffect(() => {
+    const onClick = ()=>{ setCount(count+1)  }
+    btnRef.current.addEventListener('click',onClick, false)
+    return ()=> btnRef.current.removeEventListener('click',onClick, false)
+  },[count])
+  return(<div><div>{count}</div>
+    <button ref={btnRef}>click me</button>
+  </div>)
 }
 ```
 要访问的是一个组件，操作组件里的具体DOM----React.forwardRef 高阶组件来转发ref
@@ -405,20 +405,33 @@ const Child = forwardRef((props, ref) => {
 
 ###  自定义Hook
 
-React约定自定义 Hook 必须以 use 开头
+React约定自定义 Hook 必须以 use 开头；
+自定义Hook可自由搭配其他hook使用；
+只在React的函数组件中最顶层使用 Hook。
 
-
-
-
-
-
-
-
+```js
+import React, { useState, useEffect } from 'react';
+function useOnResize (fn) {
+  useEffect(() => {
+    window.addEventListener('resize',fn);
+    return () => { window.removeEventListener('resize',fn) }
+  }, []);
+}
+export default function App() {
+  useOnResize(() => { console.log(document.body.clientWidth) })
+  return (
+    <div className="App"><p> Hello React Hook! </p></div>
+  );
+}
+```
 
 
 ##  参考
 
 https://juejin.cn/post/6844904072168865800
+
+
+源码——  https://juejin.cn/post/6961664628526940174#heading-1
 
 
 
